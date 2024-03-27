@@ -1,26 +1,39 @@
-import type { Account } from "@/service-base";
+import Decimal from "decimal.js";
+import { BaseWallet } from "utxo-wallet-sdk";
 
 export enum Chain {
   BTC = "btc",
   MVC = "mvc",
 }
 
+export type Account = {
+  name: string;
+  addressIndex: number;
+  chainWallets: { [chain in Chain]?: BaseWallet[] };
+};
+
 export type Wallet = {
-  [chain in Chain]: Account[];
+  name: string;
+  balance: Decimal;
+  mnemonic: string;
+  mvcTypes: number[];
+  accounts: {
+    [accountId: string]: Account;
+  };
 };
 
 export interface Manager {
-  [name: string]: Wallet;
+  [walletId: string]: Wallet;
 }
 
 export interface WalletOptions {
-  name: string;
+  name?: string; // wallet name
   mnemonic: string;
   mvcTypes?: number[];
-  addressIndices: number[];
+  accountsOptions: AccountOptions[];
 }
 
 export interface AccountOptions {
-  mnemonic: string;
+  name?: string; // account name
   addressIndex: number;
 }

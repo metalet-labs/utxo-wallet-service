@@ -21,17 +21,13 @@ class MvcService extends BaseService {
     for (let coinType of mvcTypes) {
       const mvcWallet = new MvcWallet({
         network,
+        coinType,
         mnemonic,
         addressIndex,
-        coinType,
       });
       mvcWallets.push(mvcWallet);
     }
-    return {
-      network,
-      mnemonic,
-      children: mvcWallets,
-    };
+    return mvcWallets;
   }
 }
 

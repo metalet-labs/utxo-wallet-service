@@ -1,27 +1,37 @@
-import { Chain } from "@/wallet-manager/types";
-import { mnemonic } from "./config";
+import { mnemonic, mnemonic2 } from "./config";
 import { WalletManager } from "@/wallet-manager";
 
 describe("test wallet manager", () => {
   let walletManager: WalletManager;
 
-  const name = "Wallet A";
-
   beforeAll(() => {
     walletManager = new WalletManager({
       network: "testnet",
-      walletsOptions: [{ name, mnemonic, addressIndices: [0] }],
+      walletsOptions: [{ mnemonic, accountsOptions: [{ addressIndex: 0 }] }],
     });
   });
 
-  test("test wallet btc address and path", () => {
-    const accounts = walletManager.getWallet(name, Chain.BTC);
-    for (let account of accounts) {
-      for (let wallet of account.children) {
-        const address = wallet.getAddress();
-        const path = wallet.getPath();
-        console.log({ address, path });
-      }
-    }
+  test("test wallet manager get wallets", () => {
+    const wallets = walletManager.getWallets();
+    console.log(wallets);
+  });
+
+  test("test wallet manager add wallet", () => {
+    walletManager.addWallet({
+      mnemonic: mnemonic2,
+      accountsOptions: [{ addressIndex: 0 }],
+    });
+    const wallets = walletManager.getWallets();
+    console.log(wallets);
+  });
+
+  test("test wallet manager add account", () => {
+    let wallets = walletManager.getWallets();
+    const walletId = wallets[0].id;
+    walletManager.addAccount(walletId, {
+      addressIndex: 1,
+    });
+    wallets = walletManager.getWallets();
+    console.log(wallets);
   });
 });

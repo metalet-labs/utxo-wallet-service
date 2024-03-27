@@ -1,41 +1,22 @@
-import { type Net } from "utxo-wallet-sdk";
+import Decimal from "decimal.js";
 import { MvcService } from "@/service-mvc";
-import { type Account } from "@/service-base";
-import { BtcService } from "@/service-bitcoin";
+import { BtcService } from "@/service-btc";
+import { formatIndex, genUID } from "./tools";
+import { BaseWallet, type Net } from "utxo-wallet-sdk";
 import {
   Chain,
-  type Wallet,
   type Manager,
   type WalletOptions,
   type AccountOptions,
 } from "./types";
 
-function getWalletKey(walletOptions: WalletOptions): string {
-  return `${walletOptions.name}-${walletOptions.mnemonic}`;
-}
-
-function hasDuplicateWalletOptions(walletOptions: WalletOptions[]): boolean {
-  const walletKeys = new Set<string>();
-
-  for (const options of walletOptions) {
-    const key = getWalletKey(options);
-    if (walletKeys.has(key)) {
-      console.error(`Duplicate wallet options found: ${options.name}`);
-      return true;
-    }
-    walletKeys.add(key);
-  }
-
-  return false;
-}
-
 const _initWallet = Symbol("_initWallet");
+const _initAccount = Symbol("_initAccount");
 
 class WalletManager {
   #network: Net;
   #chains: Chain[];
   #manager: Manager;
-  #walletsOptions: WalletOptions[];
 
   constructor({
     network,
@@ -48,125 +29,183 @@ class WalletManager {
   }) {
     this.#chains = chains;
     this.#network = network;
-    if (hasDuplicateWalletOptions(walletsOptions)) {
-      throw new Error("Array contains duplicate wallet options");
-    }
-    this.#walletsOptions = walletsOptions;
     this.#manager = Object.fromEntries(
-      walletsOptions.map((walletOptions) => [
-        walletOptions.name,
-        this[_initWallet]({ network, walletOptions, chains }),
-      ])
+      walletsOptions.map((walletOptions, index) => {
+        const walletId = genUID();
+        const name = walletOptions.name
+          ? walletOptions.name
+          : `Wallet ${formatIndex(index + 1)}`;
+        return [walletId, this[_initWallet]({ ...walletOptions, name })];
+      })
     );
   }
 
-  [_initWallet]({
-    chains,
-    network,
-    walletOptions,
+  [_initAccount]({
+    name,
+    mnemonic,
+    mvcTypes,
+    addressIndex,
   }: {
-    network: Net;
-    chains: Chain[];
-    walletOptions: WalletOptions;
+    name: string;
+    mnemonic: string;
+    mvcTypes?: number[];
+    addressIndex: number;
   }) {
-    const { mnemonic, addressIndices, mvcTypes } = walletOptions;
+    return {
+      name,
+      addressIndex,
+      chainWallets: Object.fromEntries(
+        Object.values(this.#chains).map((chain) => [
+          chain,
+          getChainWallets({
+            chain,
+            mnemonic,
+            mvcTypes,
+            addressIndex,
+            network: this.#network,
+          }),
+        ])
+      ),
+    };
 
-    const wallet = Object.fromEntries(
-      Object.values(chains).map((chain) => [chain, [] as Account[]])
-    ) as Wallet;
-
-    for (const chain of chains) {
+    function getChainWallets({
+      chain,
+      network,
+      mnemonic,
+      mvcTypes,
+      addressIndex,
+    }: {
+      chain: Chain;
+      network: Net;
+      mnemonic: string;
+      mvcTypes?: number[];
+      addressIndex: number;
+    }) {
       switch (chain) {
         case Chain.BTC:
-          const bitcService = new BtcService();
-          wallet[Chain.BTC] = addressIndices.map((addressIndex) =>
-            bitcService.createAccount({ network, mnemonic, addressIndex })
-          );
-          break;
+          return new BtcService().createAccount({
+            network,
+            mnemonic,
+            addressIndex,
+          });
         case Chain.MVC:
-          const mvcService = new MvcService();
-          wallet[Chain.MVC] = addressIndices.map((addressIndex) =>
-            mvcService.createAccount({
-              network,
-              mnemonic,
-              addressIndex,
-              mvcTypes,
-            })
-          );
-          break;
+          return new MvcService().createAccount({
+            network,
+            mnemonic,
+            addressIndex,
+            mvcTypes,
+          });
         default:
           throw new Error(`Unsupported chain type: ${chain}.`);
       }
     }
-    return wallet;
   }
 
-  addWallet({
-    walletOptions,
-    chains = Object.values(Chain),
-  }: {
-    chains: Chain[];
-    mvcTypes?: number[];
-    walletOptions: WalletOptions;
-  }) {
+  [_initWallet](
+    walletOptions: Omit<WalletOptions, "name"> & {
+      name: string;
+    }
+  ) {
+    const {
+      name,
+      mnemonic,
+      accountsOptions,
+      mvcTypes = [10001],
+    } = walletOptions;
+    return {
+      name,
+      mnemonic,
+      mvcTypes,
+      balance: new Decimal(0),
+      accounts: Object.fromEntries(
+        accountsOptions.map(({ name: accountName, addressIndex }, index) => [
+          genUID(),
+          this[_initAccount]({
+            mnemonic,
+            mvcTypes,
+            addressIndex,
+            name: accountName || `Account ${formatIndex(index + 1)}`,
+          }),
+        ])
+      ),
+    };
+  }
+
+  getWalletCount() {
+    return Object.keys(this.#manager).length;
+  }
+
+  getWalletAccountCount(walletId: string) {
+    return Object.keys(this.#manager[walletId]["accounts"]).length;
+  }
+
+  addWallet(walletOptions: WalletOptions) {
     if (
-      this.#walletsOptions.findIndex(
-        (_walletsOptions) => _walletsOptions.mnemonic === walletOptions.mnemonic
+      Object.values(this.#manager).findIndex(
+        (wallet) => wallet.mnemonic === walletOptions.mnemonic
       ) !== -1
     ) {
       throw new Error("Wallet already exists");
     }
-    const wallet = this[_initWallet]({
-      chains,
-      walletOptions,
-      network: this.#network,
-    });
-    this.#manager = { ...this.#manager, [walletOptions.name]: wallet };
+    const index = this.getWalletCount();
+    const name = walletOptions.name
+      ? walletOptions.name
+      : `Wallet ${formatIndex(index + 1)}`;
+    const wallet = this[_initWallet]({ ...walletOptions, name });
+    this.#manager = { ...this.#manager, [genUID()]: wallet };
   }
 
-  addAccount(accountOptions: AccountOptions) {
-    const walletOption = this.#walletsOptions.find(
-      (_walletsOptions) => _walletsOptions.mnemonic === accountOptions.mnemonic
-    );
-    if (!walletOption) {
-      throw new Error("Wallet doesn't exist");
+  addAccount(walletId: string, accountOptions: AccountOptions) {
+    const { addressIndex, name: accountName } = accountOptions;
+    const wallet = this.#manager[walletId];
+
+    if (!wallet) {
+      throw new Error(`Wallet with id "${walletId}" does not exist`);
     }
-    if (walletOption.addressIndices.includes(accountOptions.addressIndex)) {
+
+    const existingAccount = Object.values(wallet.accounts).find(
+      (account) => account.addressIndex === addressIndex
+    );
+
+    if (existingAccount) {
       throw new Error("Account already exists");
     }
-    const { name, mvcTypes } = walletOption;
-    const { mnemonic, addressIndex } = accountOptions;
-    for (const chain of this.#chains) {
-      switch (chain) {
-        case Chain.BTC:
-          this.#manager[name][Chain.BTC] = [
-            ...this.#manager[name][Chain.BTC],
-            new BtcService().createAccount({
-              network: this.#network,
-              mnemonic,
-              addressIndex,
-            }),
-          ];
-          break;
-        case Chain.MVC:
-          this.#manager[name][Chain.MVC] = [
-            ...this.#manager[name][Chain.MVC],
-            new MvcService().createAccount({
-              mnemonic,
-              mvcTypes,
-              addressIndex,
-              network: this.#network,
-            }),
-          ];
-          break;
-        default:
-          throw new Error(`Unsupported chain type: ${chain}.`);
-      }
-    }
+
+    const name =
+      accountName ||
+      `Account ${formatIndex(Object.keys(wallet.accounts).length + 1)}`;
+    const account = this[_initAccount]({
+      name,
+      mnemonic: wallet.mnemonic,
+      mvcTypes: wallet.mvcTypes,
+      addressIndex,
+    });
+
+    this.#manager[walletId].accounts[name] = account;
   }
 
-  getWallet(name:string,chain:Chain) {
-    return this.#manager[name][chain];
+  getWallets() {
+    return Object.entries(this.#manager).map(([walletId, wallet]) => ({
+      id: walletId,
+      name: wallet.name,
+      balance: wallet.balance.toNumber(),
+      accounts: Object.entries(wallet.accounts).map(([accountId, account]) => ({
+        id: accountId,
+        name: account.name,
+        ...Object.fromEntries(
+          Object.entries(account['chainWallets'])
+            .filter(([key]) => Object.values(Chain).includes(key as Chain))
+            .map(([chain, baseWallets]) => [
+              chain,
+              (baseWallets as BaseWallet[]).map((baseWallet) => ({
+                path: baseWallet.getPath(),
+                address: baseWallet.getAddress(),
+                addressType: baseWallet.getAddressType(),
+              })),
+            ])
+        ),
+      })),
+    }));
   }
 }
 

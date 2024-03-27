@@ -26,11 +26,7 @@ class BtcService extends BaseService {
       });
       btcWallets.push(btcWallet);
     }
-    return {
-      network,
-      mnemonic,
-      children: btcWallets,
-    };
+    return btcWallets;
   }
 }
 
