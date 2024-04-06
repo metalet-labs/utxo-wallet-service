@@ -1,5 +1,8 @@
 import Decimal from "decimal.js";
+import { mvcCoinType } from "@/service-mvc";
 import { BaseWallet } from "utxo-wallet-sdk";
+
+export type { mvcCoinType };
 
 export enum Chain {
   BTC = "btc",
@@ -16,7 +19,7 @@ export type Wallet = {
   name: string;
   balance: Decimal;
   mnemonic: string;
-  mvcTypes: number[];
+  mvcTypes: mvcCoinType[];
   accounts: {
     [accountId: string]: Account;
   };
@@ -27,13 +30,15 @@ export interface Manager {
 }
 
 export interface WalletOptions {
+  id?: string;
   name?: string; // wallet name
   mnemonic: string;
-  mvcTypes?: number[];
+  mvcTypes?: mvcCoinType[];
   accountsOptions: AccountOptions[];
 }
 
 export interface AccountOptions {
+  id?: string;
   name?: string; // account name
   addressIndex: number;
 }

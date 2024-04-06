@@ -1,5 +1,6 @@
+import { mvcCoinType } from "./types";
 import { BaseService } from "@/service-base";
-import { MvcWallet, type Net } from "utxo-wallet-sdk";
+import { AddressType, CoinType, MvcWallet, type Net } from "utxo-wallet-sdk";
 
 class MvcService extends BaseService {
   send() {
@@ -14,15 +15,20 @@ class MvcService extends BaseService {
   }: {
     network: Net;
     mnemonic: string;
-    mvcTypes?: number[];
     addressIndex: number;
+    mvcTypes?: mvcCoinType[];
   }) {
     const mvcWallets: MvcWallet[] = [];
     for (let coinType of mvcTypes) {
+      const addressType =
+        coinType === CoinType.MVC
+          ? AddressType.LegacyMvc
+          : AddressType.LegacyMvcCustom;
       const mvcWallet = new MvcWallet({
         network,
-        coinType,
         mnemonic,
+        coinType,
+        addressType,
         addressIndex,
       });
       mvcWallets.push(mvcWallet);

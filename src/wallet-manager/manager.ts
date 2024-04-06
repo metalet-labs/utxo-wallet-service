@@ -1,8 +1,8 @@
 import Decimal from "decimal.js";
-import { MvcService } from "@/service-mvc";
 import { BtcService } from "@/service-btc";
 import { formatIndex, genUID } from "./tools";
 import { BaseWallet, type Net } from "utxo-wallet-sdk";
+import { MvcService,type mvcCoinType } from "@/service-mvc";
 import {
   Chain,
   type Manager,
@@ -31,7 +31,7 @@ class WalletManager {
     this.#network = network;
     this.#manager = Object.fromEntries(
       walletsOptions.map((walletOptions, index) => {
-        const walletId = genUID();
+        const walletId = walletOptions.id || genUID();
         const name = walletOptions.name
           ? walletOptions.name
           : `Wallet ${formatIndex(index + 1)}`;
@@ -48,8 +48,8 @@ class WalletManager {
   }: {
     name: string;
     mnemonic: string;
-    mvcTypes?: number[];
     addressIndex: number;
+    mvcTypes?: mvcCoinType[];
   }) {
     return {
       name,
@@ -78,8 +78,8 @@ class WalletManager {
       chain: Chain;
       network: Net;
       mnemonic: string;
-      mvcTypes?: number[];
       addressIndex: number;
+      mvcTypes?: mvcCoinType[];
     }) {
       switch (chain) {
         case Chain.BTC:
@@ -118,15 +118,17 @@ class WalletManager {
       mvcTypes,
       balance: new Decimal(0),
       accounts: Object.fromEntries(
-        accountsOptions.map(({ name: accountName, addressIndex }, index) => [
-          genUID(),
-          this[_initAccount]({
-            mnemonic,
-            mvcTypes,
-            addressIndex,
-            name: accountName || `Account ${formatIndex(index + 1)}`,
-          }),
-        ])
+        accountsOptions.map(
+          ({ id: accountId, name: accountName, addressIndex }, index) => [
+            accountId || genUID(),
+            this[_initAccount]({
+              mnemonic,
+              mvcTypes,
+              addressIndex,
+              name: accountName || `Account ${formatIndex(index + 1)}`,
+            }),
+          ]
+        )
       ),
     };
   }
@@ -193,7 +195,7 @@ class WalletManager {
         id: accountId,
         name: account.name,
         ...Object.fromEntries(
-          Object.entries(account['chainWallets'])
+          Object.entries(account["chainWallets"])
             .filter(([key]) => Object.values(Chain).includes(key as Chain))
             .map(([chain, baseWallets]) => [
               chain,

@@ -16,7 +16,13 @@ class BtcService extends BaseService {
     addressIndex: number;
   }) {
     const btcWallets: BtcWallet[] = [];
-    const addressTypes = Object.values(AddressType);
+    const addressTypes = [
+      AddressType.Legacy,
+      AddressType.NativeSegwit,
+      AddressType.NestedSegwit,
+      AddressType.Taproot,
+      AddressType.SameAsMvc,
+    ];
     for (let addressType of addressTypes) {
       const btcWallet = new BtcWallet({
         network,

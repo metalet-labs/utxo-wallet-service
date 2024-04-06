@@ -1,9 +1,10 @@
-import crypto from "crypto";
+import CryptoJS from "crypto-js";
 
 export function formatIndex(index: number): string {
   return index < 10 ? `0${index}` : `${index}`;
 }
 
 export function genUID() {
-  return crypto.randomBytes(16).toString("hex");
+  const randomBytes = CryptoJS.lib.WordArray.random(16);
+  return randomBytes.toString(CryptoJS.enc.Hex);
 }
