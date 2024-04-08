@@ -2,7 +2,7 @@ import Decimal from "decimal.js";
 import { BtcService } from "@/service-btc";
 import { formatIndex, genUID } from "./tools";
 import { BaseWallet, type Net } from "utxo-wallet-sdk";
-import { MvcService,type mvcCoinType } from "@/service-mvc";
+import { MvcService, type mvcCoinType } from "@/service-mvc";
 import {
   Chain,
   type Manager,
@@ -154,7 +154,10 @@ class WalletManager {
       ? walletOptions.name
       : `Wallet ${formatIndex(index + 1)}`;
     const wallet = this[_initWallet]({ ...walletOptions, name });
-    this.#manager = { ...this.#manager, [genUID()]: wallet };
+    this.#manager = {
+      ...this.#manager,
+      [walletOptions.id || genUID()]: wallet,
+    };
   }
 
   addAccount(walletId: string, accountOptions: AccountOptions) {
@@ -172,18 +175,22 @@ class WalletManager {
     if (existingAccount) {
       throw new Error("Account already exists");
     }
+    // console.log(wallet.accounts);
 
-    const name =
-      accountName ||
-      `Account ${formatIndex(Object.keys(wallet.accounts).length + 1)}`;
+    // console.log(Object.keys(wallet.accounts).length);
+
+    const name = accountName || `Account ${formatIndex(addressIndex + 1)}`;
+
     const account = this[_initAccount]({
       name,
+      addressIndex,
       mnemonic: wallet.mnemonic,
       mvcTypes: wallet.mvcTypes,
-      addressIndex,
     });
+    const accountId = accountOptions.id || genUID();
 
-    this.#manager[walletId].accounts[name] = account;
+    this.#manager[walletId].accounts[accountId] = account;
+    return { id: accountId, name, addressIndex };
   }
 
   getWallets() {
@@ -208,6 +215,23 @@ class WalletManager {
         ),
       })),
     }));
+  }
+
+  getAccountChainWallets(walletId: string, accountId: string) {
+    return Object.fromEntries(
+      Object.entries(
+        this.#manager[walletId].accounts[accountId]["chainWallets"]
+      )
+        .filter(([key]) => Object.values(Chain).includes(key as Chain))
+        .map(([chain, baseWallets]) => [
+          chain,
+          (baseWallets as BaseWallet[]).map((baseWallet) => ({
+            path: baseWallet.getPath(),
+            address: baseWallet.getAddress(),
+            addressType: baseWallet.getAddressType(),
+          })),
+        ])
+    );
   }
 }
 
