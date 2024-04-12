@@ -1,8 +1,8 @@
 import Decimal from "decimal.js";
 import { BtcService } from "@/service-btc";
 import { formatIndex, genUID } from "./tools";
-import { BaseWallet, type Net } from "utxo-wallet-sdk";
 import { MvcService, type mvcCoinType } from "@/service-mvc";
+import { BaseWallet, type Net } from "@metalet/utxo-wallet-sdk";
 import {
   Chain,
   type Manager,
@@ -154,9 +154,47 @@ class WalletManager {
       ? walletOptions.name
       : `Wallet ${formatIndex(index + 1)}`;
     const wallet = this[_initWallet]({ ...walletOptions, name });
+    const walletId = walletOptions.id || genUID();
     this.#manager = {
       ...this.#manager,
-      [walletOptions.id || genUID()]: wallet,
+      [walletId]: wallet,
+    };
+    return {
+      id: walletId,
+      name,
+      mnemonic: walletOptions.mnemonic,
+      mvcTypes: wallet.mvcTypes,
+      accounts: Object.entries(wallet.accounts).map(([accountId, account]) => ({
+        id: accountId,
+        name: account.name,
+        addressIndex: account.addressIndex,
+      })),
+    };
+  }
+
+  findWallet(mnemonic: string) {
+    const wallet = Object.values(this.#manager).find(
+      (w) => w.mnemonic === mnemonic
+    );
+
+    if (!wallet) {
+      throw new Error(`Wallet with mnemonic "${mnemonic}" not found.`);
+    }
+
+    const walletId = Object.keys(this.#manager).find(
+      (id) => this.#manager[id] === wallet
+    );
+
+    return {
+      id: walletId!,
+      name: wallet.name,
+      mnemonic: wallet.mnemonic,
+      mvcTypes: wallet.mvcTypes,
+      accounts: Object.entries(wallet.accounts).map(([accountId, account]) => ({
+        id: accountId,
+        name: account.name,
+        addressIndex: account.addressIndex,
+      })),
     };
   }
 
@@ -217,22 +255,26 @@ class WalletManager {
     }));
   }
 
-  getAccountChainWallets(walletId: string, accountId: string) {
-    return Object.fromEntries(
-      Object.entries(
-        this.#manager[walletId].accounts[accountId]["chainWallets"]
-      )
-        .filter(([key]) => Object.values(Chain).includes(key as Chain))
-        .map(([chain, baseWallets]) => [
-          chain,
-          (baseWallets as BaseWallet[]).map((baseWallet) => ({
-            path: baseWallet.getPath(),
-            address: baseWallet.getAddress(),
-            addressType: baseWallet.getAddressType(),
-          })),
-        ])
-    );
+  getAccountChainWallets(walletId:string,accountId:string){
+    return this.#manager[walletId].accounts[accountId]["chainWallets"];
   }
+
+  // getAccountChainWallets(walletId: string, accountId: string) {
+  //   return Object.fromEntries(
+  //     Object.entries(
+  //       this.#manager[walletId].accounts[accountId]["chainWallets"]
+  //     )
+  //       .filter(([key]) => Object.values(Chain).includes(key as Chain))
+  //       .map(([chain, baseWallets]) => [
+  //         chain,
+  //         (baseWallets as BaseWallet[]).map((baseWallet) => ({
+  //           path: baseWallet.getPath(),
+  //           address: baseWallet.getAddress(),
+  //           addressType: baseWallet.getAddressType(),
+  //         })),
+  //       ])
+  //   );
+  // }
 }
 
 export { WalletManager };

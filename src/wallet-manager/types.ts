@@ -1,8 +1,10 @@
 import Decimal from "decimal.js";
 import { mvcCoinType } from "@/service-mvc";
-import { BaseWallet } from "utxo-wallet-sdk";
+import { BaseWallet, type Net, ScriptType } from "@metalet/utxo-wallet-sdk";
 
-export type { mvcCoinType };
+export type { mvcCoinType, Net };
+
+export { ScriptType };
 
 export enum Chain {
   BTC = "btc",

@@ -1,11 +1,14 @@
 {
-  "name": "utxo-wallet-service",
+  "name": "@metalet/utxo-wallet-service",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "test": "jest --config=jest.config.ts",

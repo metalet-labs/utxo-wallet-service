@@ -1,6 +1,6 @@
 import { mvcCoinType } from "./types";
 import { BaseService } from "@/service-base";
-import { AddressType, CoinType, MvcWallet, type Net } from "utxo-wallet-sdk";
+import { AddressType, CoinType, MvcWallet, type Net } from "@metalet/utxo-wallet-sdk";
 
 class MvcService extends BaseService {
   send() {

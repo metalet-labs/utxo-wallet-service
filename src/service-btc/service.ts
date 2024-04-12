@@ -1,5 +1,5 @@
 import { BaseService } from "@/service-base";
-import { BtcWallet, type Net, AddressType } from "utxo-wallet-sdk";
+import { BtcWallet, type Net, AddressType } from "@metalet/utxo-wallet-sdk";
 
 class BtcService extends BaseService {
   send() {
