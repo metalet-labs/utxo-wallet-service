@@ -1,6 +1,5 @@
 {
   "name": "@metalet/utxo-wallet-service",
-  "private": true,
   "version": "0.1.0",
   "type": "module",
   "main": "dist/index.cjs",
