@@ -1,7 +1,7 @@
 {
   "name": "@metalet/utxo-wallet-service",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -30,7 +30,7 @@
     "vite-plugin-dts": "^3.7.3"
   },
   "dependencies": {
-    "@metalet/utxo-wallet-sdk": "^0.2.0",
+    "@metalet/utxo-wallet-sdk": "^0.3.0",
     "crypto-js": "^4.2.0",
     "decimal.js": "^10.4.3"
   }
