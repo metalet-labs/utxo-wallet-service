@@ -87,6 +87,7 @@ class WalletManager {
             network,
             mnemonic,
             addressIndex,
+            mvcTypes,
           });
         case Chain.MVC:
           return new MvcService().createAccount({
@@ -255,7 +256,7 @@ class WalletManager {
     }));
   }
 
-  getAccountChainWallets(walletId:string,accountId:string){
+  getAccountChainWallets(walletId: string, accountId: string) {
     return this.#manager[walletId].accounts[accountId]["chainWallets"];
   }
 

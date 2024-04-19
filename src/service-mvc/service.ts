@@ -1,6 +1,11 @@
 import { mvcCoinType } from "./types";
 import { BaseService } from "@/service-base";
-import { AddressType, CoinType, MvcWallet, type Net } from "@metalet/utxo-wallet-sdk";
+import {
+  AddressType,
+  CoinType,
+  MvcWallet,
+  type Net,
+} from "@metalet/utxo-wallet-sdk";
 
 class MvcService extends BaseService {
   createAccount({
@@ -16,15 +21,15 @@ class MvcService extends BaseService {
   }) {
     const mvcWallets: MvcWallet[] = [];
     for (let coinType of mvcTypes) {
-      const addressType =
-        coinType === CoinType.MVC
-          ? AddressType.LegacyMvc
-          : AddressType.LegacyMvcCustom;
+      // const addressType =
+      //   coinType === CoinType.MVC
+      //     ? AddressType.LegacyMvc
+      //     : AddressType.LegacyMvcCustom;
       const mvcWallet = new MvcWallet({
         network,
         mnemonic,
         coinType,
-        addressType,
+        addressType: AddressType.LegacyMvc,
         addressIndex,
       });
       mvcWallets.push(mvcWallet);

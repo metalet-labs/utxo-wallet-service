@@ -681,10 +681,10 @@
   resolved "https://registry.yarnpkg.com/@juanelas/base64/-/base64-1.1.5.tgz#d43b3c78e32e609d9b17a15e4f1b6342c9ca1238"
   integrity sha512-mjAF27LzwfYobdwqnxZgeucbKT5wRRNvILg3h5OvCWK+3F7mw/A1tnjHnNiTYtLmTvT/bM1jA5AX7eQawDGs1w==
 
-"@metalet/utxo-wallet-sdk@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@metalet/utxo-wallet-sdk/-/utxo-wallet-sdk-0.3.0.tgz#eaf62302587607e129d07216c63743c48fbb17ab"
-  integrity sha512-Pn/YaI+4ZTApIenLsFDOnbrzYcU3zacvgOFMyk/lzBhpvHIkPuGhjd++PWRRFCZG4/oC2glDBc+8JDXdEVckew==
+"@metalet/utxo-wallet-sdk@^0.3.3":
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/@metalet/utxo-wallet-sdk/-/utxo-wallet-sdk-0.3.3.tgz#186e2b91501a472ad15c1f253e64ae11067c5b23"
+  integrity sha512-Lo5LRcnlbDFOlWpf9H3vn7RqMaCU/dmSL7gHnhw4su1AwKyLeupBF9cazDExu3G0/FTLRQjzAR+RC8AoAGdkpg==
   dependencies:
     "@bitcoinerlab/secp256k1" "^1.1.1"
     "@okxweb3/crypto-lib" "^1.0.1"

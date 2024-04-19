@@ -1,15 +1,23 @@
 import { BaseService } from "@/service-base";
-import { BtcWallet, type Net, AddressType } from "@metalet/utxo-wallet-sdk";
+import { mvcCoinType } from "@/service-mvc/types";
+import {
+  BtcWallet,
+  type Net,
+  AddressType,
+  CoinType,
+} from "@metalet/utxo-wallet-sdk";
 
 class BtcService extends BaseService {
   createAccount({
     network,
     mnemonic,
     addressIndex,
+    mvcTypes = [10001],
   }: {
     network: Net;
     mnemonic: string;
     addressIndex: number;
+    mvcTypes?: mvcCoinType[];
   }) {
     const btcWallets: BtcWallet[] = [];
     const addressTypes = [
@@ -17,7 +25,6 @@ class BtcService extends BaseService {
       AddressType.NativeSegwit,
       AddressType.NestedSegwit,
       AddressType.Taproot,
-      AddressType.SameAsMvc,
     ];
     for (let addressType of addressTypes) {
       const btcWallet = new BtcWallet({
@@ -25,6 +32,17 @@ class BtcService extends BaseService {
         mnemonic,
         addressType,
         addressIndex,
+        coinType: CoinType.BTC,
+      });
+      btcWallets.push(btcWallet);
+    }
+    for (let mvcType of mvcTypes) {
+      const btcWallet = new BtcWallet({
+        network,
+        mnemonic,
+        addressType: AddressType.SameAsMvc,
+        addressIndex,
+        coinType: mvcType,
       });
       btcWallets.push(btcWallet);
     }
