@@ -9,12 +9,14 @@ import {
 
 class BtcService extends BaseService {
   createAccount({
+    seed,
     network,
     mnemonic,
     addressIndex,
     mvcTypes = [10001],
   }: {
     network: Net;
+    seed?: Buffer;
     mnemonic: string;
     addressIndex: number;
     mvcTypes?: mvcCoinType[];
@@ -28,12 +30,14 @@ class BtcService extends BaseService {
     ];
     for (let addressType of addressTypes) {
       const btcWallet = new BtcWallet({
+        seed,
         network,
         mnemonic,
         addressType,
         addressIndex,
         coinType: CoinType.BTC,
       });
+      seed = seed ? seed : btcWallet.getSeed();
       btcWallets.push(btcWallet);
     }
     for (let mvcType of mvcTypes) {

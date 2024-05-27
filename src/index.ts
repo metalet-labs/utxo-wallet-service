@@ -1,13 +1,11 @@
-import { genUID, formatIndex } from "./wallet-manager/tools";
-import {
+export * from "./wallet-manager";
+export { genUID, formatIndex } from "./wallet-manager/tools";
+export {
   CoinType,
   SignType,
   BtcWallet,
   MvcWallet,
   BaseWallet,
   AddressType,
+  Transaction,
 } from "@metalet/utxo-wallet-sdk";
-
-export { genUID, formatIndex };
-export * from "./wallet-manager";
-export { BtcWallet, MvcWallet, BaseWallet, AddressType, CoinType, SignType };

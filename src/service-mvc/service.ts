@@ -9,12 +9,14 @@ import {
 
 class MvcService extends BaseService {
   createAccount({
+    seed,
     network,
     mnemonic,
     addressIndex,
     mvcTypes = [10001],
   }: {
     network: Net;
+    seed?: Buffer;
     mnemonic: string;
     addressIndex: number;
     mvcTypes?: mvcCoinType[];
@@ -26,12 +28,14 @@ class MvcService extends BaseService {
       //     ? AddressType.LegacyMvc
       //     : AddressType.LegacyMvcCustom;
       const mvcWallet = new MvcWallet({
-        network,
+        seed,
         mnemonic,
         coinType,
-        addressType: AddressType.LegacyMvc,
         addressIndex,
+        addressType: AddressType.LegacyMvc,
+        network: network === "regtest" ? "testnet" : network,
       });
+      seed = seed ? seed : mvcWallet.getSeed();
       mvcWallets.push(mvcWallet);
     }
     return mvcWallets;

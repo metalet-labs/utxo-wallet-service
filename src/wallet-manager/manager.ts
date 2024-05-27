@@ -42,11 +42,13 @@ class WalletManager {
 
   [_initAccount]({
     name,
+    seed,
     mnemonic,
     mvcTypes,
     addressIndex,
   }: {
     name: string;
+    seed?: Buffer;
     mnemonic: string;
     addressIndex: number;
     mvcTypes?: mvcCoinType[];
@@ -58,6 +60,7 @@ class WalletManager {
         Object.values(this.#chains).map((chain) => [
           chain,
           getChainWallets({
+            seed,
             chain,
             mnemonic,
             mvcTypes,
@@ -69,6 +72,7 @@ class WalletManager {
     };
 
     function getChainWallets({
+      seed,
       chain,
       network,
       mnemonic,
@@ -77,6 +81,7 @@ class WalletManager {
     }: {
       chain: Chain;
       network: Net;
+      seed?: Buffer;
       mnemonic: string;
       addressIndex: number;
       mvcTypes?: mvcCoinType[];
@@ -84,17 +89,19 @@ class WalletManager {
       switch (chain) {
         case Chain.BTC:
           return new BtcService().createAccount({
+            seed,
             network,
             mnemonic,
-            addressIndex,
             mvcTypes,
+            addressIndex,
           });
         case Chain.MVC:
           return new MvcService().createAccount({
+            seed,
             network,
             mnemonic,
-            addressIndex,
             mvcTypes,
+            addressIndex,
           });
         default:
           throw new Error(`Unsupported chain type: ${chain}.`);
@@ -109,6 +116,7 @@ class WalletManager {
   ) {
     const {
       name,
+      seed,
       mnemonic,
       accountsOptions,
       mvcTypes = [10001],
@@ -123,6 +131,7 @@ class WalletManager {
           ({ id: accountId, name: accountName, addressIndex }, index) => [
             accountId || genUID(),
             this[_initAccount]({
+              seed,
               mnemonic,
               mvcTypes,
               addressIndex,

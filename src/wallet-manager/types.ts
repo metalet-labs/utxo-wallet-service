@@ -34,6 +34,7 @@ export interface Manager {
 export interface WalletOptions {
   id?: string;
   name?: string; // wallet name
+  seed?: Buffer;
   mnemonic: string;
   mvcTypes?: mvcCoinType[];
   accountsOptions: AccountOptions[];

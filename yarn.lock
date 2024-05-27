@@ -686,10 +686,10 @@
   resolved "https://registry.yarnpkg.com/@magiceden-oss/runestone-lib/-/runestone-lib-1.0.2.tgz#524394b49119d1acace0edc351f9cd5d7ed1ad73"
   integrity sha512-C4XoE7tHxxaWQNzovBIEndXGrTesotshnKQA8DXlnoVDvriD6G26ezUoj9AlEb2UAPbEijSga4Dtwd86Z0a1jg==
 
-"@metalet/utxo-wallet-sdk@^0.4.2":
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/@metalet/utxo-wallet-sdk/-/utxo-wallet-sdk-0.4.2.tgz#2592ab81a343ea26999d361982d36b185dcf5441"
-  integrity sha512-Nq7ycvH9Z5DBb5a3S/+i1O7TxdBnPBmYx1w35kUg5mnPduFvO6e8aylFQX2HlxG+4TFB71ckVkVyZkM+HztQVg==
+"@metalet/utxo-wallet-sdk@^0.4.8":
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/@metalet/utxo-wallet-sdk/-/utxo-wallet-sdk-0.4.8.tgz#0dd2076e83e2e2e8a4507798852df3bc101e3e05"
+  integrity sha512-Iv4bICLVfM4g4Vw7ilMha+R0ulZCG2r4hAlYaidzMV6viUXOGwYsLZfiQI0HuR4vVLnwsSmPsq9rv9olinXSdA==
   dependencies:
     "@bitcoinerlab/secp256k1" "^1.1.1"
     "@magiceden-oss/runestone-lib" "^1.0.2"
@@ -765,9 +765,9 @@
   integrity sha512-hOUk6AyBFmqVrv7k5WAw/LpszxVbj9gGN4JRkIX52fdFAj1UA61KXmZDvqVEm+pOyec3+fIeZB02LYa/pWOArw==
 
 "@okxweb3/crypto-lib@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@okxweb3/crypto-lib/-/crypto-lib-1.0.1.tgz#60173a7aab56b9685da0056d625b9d39f68e804f"
-  integrity sha512-sHzKFefA042yn6/KzTHmK4XqGrCKoykltcpMaZjEEywCFCocS1r8sD/GBcELQC4JP3kIvd2tbW+tzMO8UOv1kQ==
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@okxweb3/crypto-lib/-/crypto-lib-1.0.2.tgz#9db3ba452baaab3dfb800ecb2edc483578fc74ca"
+  integrity sha512-XZ8UiIlKnlTqkM2dO19qUWdQybB9W5dnUN7ZKGdFrfcQr2Oe6milncZ5Ar5ECICUzoOlibjKHjp18iMrM5crAg==
   dependencies:
     "@noble/ed25519" "^1.7.3"
     "@noble/hashes" "1.0.0"
@@ -779,11 +779,9 @@
     bignumber.js "^9.0.1"
     bn.js "4.12.0"
     brorand "^1.1.0"
-    crypto-js "^3.3.0"
     hash.js "^1.0.0"
     hmac-drbg "^1.0.1"
     inherits "^2.0.4"
-    jsrsasign "^10.8.2"
     long "^5.2.0"
     minimalistic-assert "^1.0.1"
     minimalistic-crypto-utils "^1.0.1"
@@ -1112,10 +1110,17 @@
     expect "^29.0.0"
     pretty-format "^29.0.0"
 
-"@types/node@*", "@types/node@>=13.7.0", "@types/node@^20.11.30":
+"@types/node@*", "@types/node@^20.11.30":
   version "20.12.7"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-20.12.7.tgz#04080362fa3dd6c5822061aa3124f5c152cff384"
   integrity sha512-wq0cICSkRLVaf3UGLMGItu/PtdY7oaXaI/RVU+xliKVOtRna3PRY57ZDfztpDL0n11vfymMUnXv8QwYCO7L1wg==
+  dependencies:
+    undici-types "~5.26.4"
+
+"@types/node@>=13.7.0":
+  version "20.12.12"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.12.12.tgz#7cbecdf902085cec634fdb362172dfe12b8f2050"
+  integrity sha512-eWLDGF/FOSPtAvEqeRAQ4C8LSA7M1I7i0ky1I8U7kD1J5ITyW3AsRhQrKVoWf5pFKZ2kILsEGJhsI9r93PYnOw==
   dependencies:
     undici-types "~5.26.4"
 
@@ -1445,9 +1450,9 @@ bitcoinjs-lib@^6.1.5:
     varuint-bitcoin "^1.1.2"
 
 bitcore-lib@^10.0.28:
-  version "10.0.28"
-  resolved "https://registry.yarnpkg.com/bitcore-lib/-/bitcore-lib-10.0.28.tgz#f46810324df1021f194dcdc1411c2d1a83b9be10"
-  integrity sha512-uOWHpWbUxEj411p+tp6DCb9NfZdsCAHl6Z/rs96mquQMsef29fOqWUyk4Bl7yLf+KwzU5ZKy0HIPnjGFlmpXpg==
+  version "10.0.36"
+  resolved "https://registry.yarnpkg.com/bitcore-lib/-/bitcore-lib-10.0.36.tgz#2a88c8e0e63d4fc08e870fcc2d6493b931cfd630"
+  integrity sha512-yGSiEubYzabCYZ5/qu9ji5P/kfLkXpBgm1lAblVO2ESuD9ep7aaG6TRd3K5ips4pWgW/uRQpbiErT6pw2Ke/AQ==
   dependencies:
     bech32 "=2.0.0"
     bip-schnorr "=0.6.4"
@@ -1742,11 +1747,6 @@ cross-spawn@^7.0.3:
     path-key "^3.1.0"
     shebang-command "^2.0.0"
     which "^2.0.1"
-
-crypto-js@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-3.3.0.tgz#846dd1cce2f68aacfa156c8578f926a609b7976b"
-  integrity sha512-DIT51nX0dCfKltpRiXV+/TVZq+Qq2NgF4644+K7Ttnla7zEzqc+kjJyiB96BHNyUTBxyjzRcZYpUdZa+QAqi6Q==
 
 crypto-js@^4.2.0:
   version "4.2.0"
@@ -2972,11 +2972,6 @@ jsonfile@^4.0.0:
   optionalDependencies:
     graceful-fs "^4.1.6"
 
-jsrsasign@^10.8.2:
-  version "10.9.0"
-  resolved "https://registry.yarnpkg.com/jsrsasign/-/jsrsasign-10.9.0.tgz#cc3f316e7e4c112a976193f9d2c93deb5a0745ee"
-  integrity sha512-QWLUikj1SBJGuyGK8tjKSx3K7Y69KYJnrs/pQ1KZ6wvZIkHkWjZ1PJDpuvc1/28c1uP0KW9qn1eI1LzHQqDOwQ==
-
 kleur@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
@@ -3393,9 +3388,9 @@ prompts@^2.0.1:
     sisteransi "^1.0.5"
 
 protobufjs@^7.2.4:
-  version "7.2.6"
-  resolved "https://registry.yarnpkg.com/protobufjs/-/protobufjs-7.2.6.tgz#4a0ccd79eb292717aacf07530a07e0ed20278215"
-  integrity sha512-dgJaEDDL6x8ASUZ1YqWciTRrdOuYNzoOf27oHNfdyvKqHr5i0FV7FSLU+aIeFjyFgVxrpTOtQUi0BLLBymZaBw==
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/protobufjs/-/protobufjs-7.3.0.tgz#a32ec0422c039798c41a0700306a6e305b9cb32c"
+  integrity sha512-YWD03n3shzV9ImZRX3ccbjqLxj7NokGN0V/ESiBV5xWqrommYHYiihuIyavq03pWSGqlyvYUFmfoMKd+1rPA/g==
   dependencies:
     "@protobufjs/aspromise" "^1.1.2"
     "@protobufjs/base64" "^1.1.2"
