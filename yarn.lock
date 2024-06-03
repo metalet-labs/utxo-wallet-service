@@ -686,10 +686,10 @@
   resolved "https://registry.yarnpkg.com/@magiceden-oss/runestone-lib/-/runestone-lib-1.0.2.tgz#524394b49119d1acace0edc351f9cd5d7ed1ad73"
   integrity sha512-C4XoE7tHxxaWQNzovBIEndXGrTesotshnKQA8DXlnoVDvriD6G26ezUoj9AlEb2UAPbEijSga4Dtwd86Z0a1jg==
 
-"@metalet/utxo-wallet-sdk@^0.4.8":
-  version "0.4.8"
-  resolved "https://registry.yarnpkg.com/@metalet/utxo-wallet-sdk/-/utxo-wallet-sdk-0.4.8.tgz#0dd2076e83e2e2e8a4507798852df3bc101e3e05"
-  integrity sha512-Iv4bICLVfM4g4Vw7ilMha+R0ulZCG2r4hAlYaidzMV6viUXOGwYsLZfiQI0HuR4vVLnwsSmPsq9rv9olinXSdA==
+"@metalet/utxo-wallet-sdk@^0.4.12":
+  version "0.4.12"
+  resolved "https://registry.yarnpkg.com/@metalet/utxo-wallet-sdk/-/utxo-wallet-sdk-0.4.12.tgz#7e80a2d5099bec0f528e7a4570b9ef1fd070f085"
+  integrity sha512-gNxwT7XC5lHj113V9pHOHYrsV3t2+VOysvPfXM28QXfr5P6/cO7ahdLYfW+fp3aCV0YR4hqToIytV2BnUsdmbg==
   dependencies:
     "@bitcoinerlab/secp256k1" "^1.1.1"
     "@magiceden-oss/runestone-lib" "^1.0.2"
