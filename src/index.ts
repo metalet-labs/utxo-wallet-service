@@ -8,4 +8,6 @@ export {
   BaseWallet,
   AddressType,
   Transaction,
+  type TxDetail,
+  getAddressFromScript,
 } from "@metalet/utxo-wallet-sdk";
