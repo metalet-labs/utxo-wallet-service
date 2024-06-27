@@ -2,12 +2,14 @@ import Decimal from "decimal.js";
 import { BtcService } from "@/service-btc";
 import { formatIndex, genUID } from "./tools";
 import { MvcService, type mvcCoinType } from "@/service-mvc";
-import { BaseWallet, type Net } from "@metalet/utxo-wallet-sdk";
+import { BaseWallet, type Net, BtcHotWallet } from "@metalet/utxo-wallet-sdk";
 import {
   Chain,
   type Manager,
+  type HotManager,
   type WalletOptions,
   type AccountOptions,
+  type HotWalletOptions,
 } from "./types";
 
 const _initWallet = Symbol("_initWallet");
@@ -287,4 +289,71 @@ class WalletManager {
   // }
 }
 
-export { WalletManager };
+class HotWalletManager {
+  private network: Net;
+  private manager: HotManager;
+
+  constructor({
+    network,
+    walletsOptions,
+  }: {
+    network: Net;
+    walletsOptions: HotWalletOptions[];
+  }) {
+    this.network = network;
+    this.manager = Object.fromEntries(
+      walletsOptions.map((walletOptions, index) => {
+        const walletId = walletOptions.id || genUID();
+        return [
+          walletId,
+          {
+            name: walletOptions.name
+              ? walletOptions.name
+              : `Wallet ${formatIndex(index + 1)}`,
+            wallet: new BtcHotWallet({
+              network: this.network,
+              publicKey: walletOptions.publicKey,
+              addressType: walletOptions.addressType,
+            }),
+          },
+        ];
+      })
+    );
+  }
+
+  getWalletCount() {
+    return Object.keys(this.manager).length;
+  }
+
+  addWallet(walletOptions: HotWalletOptions) {
+    if (walletOptions.id) {
+      const wallet = this.manager[walletOptions.id];
+      if (wallet) {
+        throw new Error(`Wallet with id "${walletOptions.id}" already exists.`);
+      }
+    }
+
+    const walletId = walletOptions.id || genUID();
+    this.manager[walletId] = {
+      name: walletOptions.name
+        ? walletOptions.name
+        : `Wallet ${formatIndex(this.getWalletCount() + 1)}`,
+      wallet: new BtcHotWallet({
+        network: this.network,
+        publicKey: walletOptions.publicKey,
+        addressType: walletOptions.addressType,
+      }),
+    };
+  }
+
+  getWallets() {
+    return Object.entries(this.manager).map(([walletId, wallet]) => ({
+      id: walletId,
+      name: wallet.name,
+      publicKey: wallet.wallet.getPublicKey(),
+      addressType: wallet.wallet.getAddressType(),
+    }));
+  }
+}
+
+export { WalletManager, HotWalletManager };

@@ -1,6 +1,12 @@
 import Decimal from "decimal.js";
 import { mvcCoinType } from "@/service-mvc";
-import { BaseWallet, type Net, ScriptType } from "@metalet/utxo-wallet-sdk";
+import {
+  type Net,
+  BaseWallet,
+  ScriptType,
+  AddressType,
+  BtcHotWallet,
+} from "@metalet/utxo-wallet-sdk";
 
 export type { mvcCoinType, Net };
 
@@ -44,4 +50,19 @@ export interface AccountOptions {
   id?: string;
   name?: string; // account name
   addressIndex: number;
+}
+
+export interface HotManager {
+  [walletId: string]: {
+    name: string;
+    wallet: BtcHotWallet;
+  };
+}
+
+export interface HotWalletOptions {
+  id?: string;
+  chain: Chain;
+  name?: string; // wallet name
+  publicKey: string;
+  addressType: AddressType;
 }
