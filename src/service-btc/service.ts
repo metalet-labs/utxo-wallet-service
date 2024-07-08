@@ -5,6 +5,7 @@ import {
   type Net,
   AddressType,
   CoinType,
+  SignType,
 } from "@metalet/utxo-wallet-sdk";
 
 class BtcService extends BaseService {
