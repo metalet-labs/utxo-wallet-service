@@ -116,6 +116,9 @@ class WalletManager {
       name: string;
     }
   ) {
+    if ([null, undefined, ""].includes(walletOptions.mnemonic)) {
+      throw new Error("[initWallet]: Mnemonic is required");
+    }
     const {
       name,
       seed,
@@ -154,6 +157,9 @@ class WalletManager {
   }
 
   addWallet(walletOptions: WalletOptions) {
+    if ([null, undefined, ""].includes(walletOptions.mnemonic)) {
+      throw new Error("[addWallet]: Mnemonic is required");
+    }
     if (
       Object.values(this.#manager).findIndex(
         (wallet) => wallet.mnemonic === walletOptions.mnemonic
