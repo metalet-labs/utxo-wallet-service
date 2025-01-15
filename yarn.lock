@@ -686,10 +686,10 @@
   resolved "https://registry.yarnpkg.com/@magiceden-oss/runestone-lib/-/runestone-lib-1.0.2.tgz#524394b49119d1acace0edc351f9cd5d7ed1ad73"
   integrity sha512-C4XoE7tHxxaWQNzovBIEndXGrTesotshnKQA8DXlnoVDvriD6G26ezUoj9AlEb2UAPbEijSga4Dtwd86Z0a1jg==
 
-"@metalet/utxo-wallet-sdk@0.5.50":
-  version "0.5.50"
-  resolved "https://registry.yarnpkg.com/@metalet/utxo-wallet-sdk/-/utxo-wallet-sdk-0.5.50.tgz#e9175ec56548163f3360428d68b28503cebe9a47"
-  integrity sha512-d828bIiz7dipwx2zWIyAnbpab9xiV8dH9jL0XfyFNPCrbnxWVYmpqFqEwtwPET2VR2QmUGCrSuKz5JksvHeFcg==
+"@metalet/utxo-wallet-sdk@0.5.51":
+  version "0.5.51"
+  resolved "https://registry.yarnpkg.com/@metalet/utxo-wallet-sdk/-/utxo-wallet-sdk-0.5.51.tgz#cc9a403c02c317600e2efb6ed3bcd8b95389bb39"
+  integrity sha512-EY/r8DScWh5g//CZ+mY+JPF+54Eb8PPqm4vOuVy0d+biqBtuhbF+1krg5LVo8Vv02QZ5SYOvrd1FoLrRXW0Yqg==
   dependencies:
     "@bitcoinerlab/secp256k1" "^1.1.1"
     "@magiceden-oss/runestone-lib" "^1.0.2"
@@ -1450,9 +1450,9 @@ bip39@^3.1.0:
     "@noble/hashes" "^1.2.0"
 
 bitcoinjs-lib@^6.1.6:
-  version "6.1.6"
-  resolved "https://registry.yarnpkg.com/bitcoinjs-lib/-/bitcoinjs-lib-6.1.6.tgz#f57c17c82511f860f11946d784c18da39f8618a8"
-  integrity sha512-Fk8+Vc+e2rMoDU5gXkW9tD+313rhkm5h6N9HfZxXvYU9LedttVvmXKTgd9k5rsQJjkSfsv6XRM8uhJv94SrvcA==
+  version "6.1.7"
+  resolved "https://registry.yarnpkg.com/bitcoinjs-lib/-/bitcoinjs-lib-6.1.7.tgz#0f98dec1333d658574eefa455295668cfae38bb0"
+  integrity sha512-tlf/r2DGMbF7ky1MgUqXHzypYHakkEnm0SZP23CJKIqNY/5uNAnMbFhMJdhjrL/7anfb/U8+AlpdjPWjPnAalg==
   dependencies:
     "@noble/hashes" "^1.2.0"
     bech32 "^2.0.0"
