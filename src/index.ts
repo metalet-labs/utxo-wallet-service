@@ -5,6 +5,7 @@ export {
   SignType,
   BtcWallet,
   MvcWallet,
+  DogeWallet,
   BaseWallet,
   AddressType,
   Transaction,

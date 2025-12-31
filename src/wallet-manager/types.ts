@@ -6,6 +6,7 @@ import {
   ScriptType,
   AddressType,
   BtcHotWallet,
+  DogeWallet,
 } from "@metalet/utxo-wallet-sdk";
 
 export type { mvcCoinType, Net };
@@ -15,12 +16,17 @@ export { ScriptType };
 export enum Chain {
   BTC = "btc",
   MVC = "mvc",
+  DOGE = "doge",
 }
 
 export type Account = {
   name: string;
   addressIndex: number;
-  chainWallets: { [chain in Chain]?: BaseWallet[] };
+  chainWallets: { 
+    [Chain.BTC]?: BaseWallet[];
+    [Chain.MVC]?: BaseWallet[];
+    [Chain.DOGE]?: DogeWallet[];
+  };
 };
 
 export type Wallet = {

@@ -1,8 +1,9 @@
 import Decimal from "decimal.js";
 import { BtcService } from "@/service-btc";
+import { DogeService } from "@/service-doge";
 import { formatIndex, genUID } from "./tools";
 import { MvcService, type mvcCoinType } from "@/service-mvc";
-import { BaseWallet, type Net, BtcHotWallet } from "@metalet/utxo-wallet-sdk";
+import { BaseWallet, type Net, BtcHotWallet, DogeWallet } from "@metalet/utxo-wallet-sdk";
 import {
   Chain,
   type Manager,
@@ -99,6 +100,14 @@ class WalletManager {
           });
         case Chain.MVC:
           return new MvcService().createAccount({
+            seed,
+            network,
+            mnemonic,
+            mvcTypes,
+            addressIndex,
+          });
+        case Chain.DOGE:
+          return new DogeService().createAccount({
             seed,
             network,
             mnemonic,
