@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@metalet/utxo-wallet-sdk':
-        specifier: 0.5.59-beta.0
-        version: 0.5.59-beta.0
+        specifier: 0.5.59-beta.1
+        version: 0.5.59-beta.1
       crypto-js:
         specifier: ^4.2.0
         version: 4.2.0
@@ -463,8 +463,8 @@ packages:
   '@magiceden-oss/runestone-lib@1.0.2':
     resolution: {integrity: sha512-C4XoE7tHxxaWQNzovBIEndXGrTesotshnKQA8DXlnoVDvriD6G26ezUoj9AlEb2UAPbEijSga4Dtwd86Z0a1jg==}
 
-  '@metalet/utxo-wallet-sdk@0.5.59-beta.0':
-    resolution: {integrity: sha512-24ZnqJLXUqr7i7Fowf+BVNniWlcEiGpORQPSRqaTmy+V8bjeoq5KtMxX45qVFzfhaIzzSUmP4LMm9GYFpLscvg==}
+  '@metalet/utxo-wallet-sdk@0.5.59-beta.1':
+    resolution: {integrity: sha512-SM3rVLLt5fP3FurFw8SrqmoibnMa5tLDTdKGhMoqlvKxC9ZtNaLfIKEj3j8vGG6ylJWaDGW7SC2ZZmdvC49hng==}
     engines: {node: '>=18'}
 
   '@microsoft/api-extractor-model@7.28.13':
@@ -1255,6 +1255,10 @@ packages:
   functions-have-names@1.2.3:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
 
+  generator-function@2.0.1:
+    resolution: {integrity: sha512-SFdFmIJi+ybC0vjlHN0ZGVGHc3lgE0DxPAT0djjVg+kjOnSqclqmj0KQ7ykTOLP6YxoqOvuAODGdcHJn+43q3g==}
+    engines: {node: '>= 0.4'}
+
   gensync@1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
     engines: {node: '>=6.9.0'}
@@ -1438,6 +1442,10 @@ packages:
 
   is-generator-function@1.1.0:
     resolution: {integrity: sha512-nPUB5km40q9e8UfN/Zc24eLlzdSf9OfKByBw9CIdw4H1giPMeA0OIJvbchsCu4npfI2QcMVBsGEBHKZ7wLTWmQ==}
+    engines: {node: '>= 0.4'}
+
+  is-generator-function@1.1.2:
+    resolution: {integrity: sha512-upqt1SkGkODW9tsGNG5mtXTXtECizwtS2kA161M+gJPc1xdb/Ax629af6YrTwcOeQHbewrPNlE5Dx7kzvXTizA==}
     engines: {node: '>= 0.4'}
 
   is-map@2.0.3:
@@ -2334,8 +2342,8 @@ packages:
   undici-types@6.21.0:
     resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
 
-  undici@6.22.0:
-    resolution: {integrity: sha512-hU/10obOIu62MGYjdskASR3CUAiYaFTtC9Pa6vHyf//mAipSvSQg6od2CnJswq7fvzNS3zJhxoRkgNVaHurWKw==}
+  undici@6.23.0:
+    resolution: {integrity: sha512-VfQPToRA5FZs/qJxLIinmU59u0r7LXqoJkCzinq3ckNJp3vKEh7jTWN589YQ5+aoAC/TGRLyJLCPKcLQbM8r9g==}
     engines: {node: '>=18.17'}
 
   universalify@0.1.2:
@@ -2968,7 +2976,7 @@ snapshots:
 
   '@magiceden-oss/runestone-lib@1.0.2': {}
 
-  '@metalet/utxo-wallet-sdk@0.5.59-beta.0':
+  '@metalet/utxo-wallet-sdk@0.5.59-beta.1':
     dependencies:
       '@bitcoinerlab/secp256k1': 1.2.0
       '@magiceden-oss/runestone-lib': 1.0.2
@@ -2980,7 +2988,7 @@ snapshots:
       bitcore-lib: 10.10.7
       decimal.js: 10.6.0
       ecpair: 2.1.0
-      undici: 6.22.0
+      undici: 6.23.0
 
   '@microsoft/api-extractor-model@7.28.13(@types/node@20.19.13)':
     dependencies:
@@ -3923,6 +3931,8 @@ snapshots:
 
   functions-have-names@1.2.3: {}
 
+  generator-function@2.0.1: {}
+
   gensync@1.0.0-beta.2: {}
 
   get-caller-file@2.0.5: {}
@@ -4114,6 +4124,14 @@ snapshots:
   is-generator-function@1.1.0:
     dependencies:
       call-bound: 1.0.4
+      get-proto: 1.0.1
+      has-tostringtag: 1.0.2
+      safe-regex-test: 1.1.0
+
+  is-generator-function@1.1.2:
+    dependencies:
+      call-bound: 1.0.4
+      generator-function: 2.0.1
       get-proto: 1.0.1
       has-tostringtag: 1.0.2
       safe-regex-test: 1.1.0
@@ -5237,7 +5255,7 @@ snapshots:
 
   undici-types@6.21.0: {}
 
-  undici@6.22.0: {}
+  undici@6.23.0: {}
 
   universalify@0.1.2: {}
 
@@ -5257,7 +5275,7 @@ snapshots:
     dependencies:
       inherits: 2.0.4
       is-arguments: 1.2.0
-      is-generator-function: 1.1.0
+      is-generator-function: 1.1.2
       is-typed-array: 1.1.15
       which-typed-array: 1.1.19
 
