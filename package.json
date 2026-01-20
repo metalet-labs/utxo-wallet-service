@@ -30,7 +30,7 @@
     "vite-plugin-dts": "^3.7.3"
   },
   "dependencies": {
-    "@metalet/utxo-wallet-sdk": "0.5.60-beta.3",
+    "@metalet/utxo-wallet-sdk": "0.5.60-beta.4",
     "crypto-js": "^4.2.0",
     "decimal.js": "^10.4.3"
   }
