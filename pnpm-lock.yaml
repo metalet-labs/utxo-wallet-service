@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@metalet/utxo-wallet-sdk':
-        specifier: 0.5.60-beta.1
-        version: 0.5.60-beta.1
+        specifier: 0.5.60-beta.2
+        version: 0.5.60-beta.2
       crypto-js:
         specifier: ^4.2.0
         version: 4.2.0
@@ -463,8 +463,8 @@ packages:
   '@magiceden-oss/runestone-lib@1.0.2':
     resolution: {integrity: sha512-C4XoE7tHxxaWQNzovBIEndXGrTesotshnKQA8DXlnoVDvriD6G26ezUoj9AlEb2UAPbEijSga4Dtwd86Z0a1jg==}
 
-  '@metalet/utxo-wallet-sdk@0.5.60-beta.1':
-    resolution: {integrity: sha512-nTsQUnbArXBrgF9IJbkgmpjv3O65GGat564oCM/R/ZQ/VOrfRjemKcYqaJdVLsoJ1QeOaW1/FhC+UQ6ewFZlRQ==}
+  '@metalet/utxo-wallet-sdk@0.5.60-beta.2':
+    resolution: {integrity: sha512-wUR0cQ236ibT4u4CMRO9Tu+rIJ07o3gv5+U+X9FHaByDBLNUHpCET7MdM2+ZocWPcRcrcfe+QzCNWTZ3dz3+zg==}
     engines: {node: '>=18'}
 
   '@microsoft/api-extractor-model@7.28.13':
@@ -2976,7 +2976,7 @@ snapshots:
 
   '@magiceden-oss/runestone-lib@1.0.2': {}
 
-  '@metalet/utxo-wallet-sdk@0.5.60-beta.1':
+  '@metalet/utxo-wallet-sdk@0.5.60-beta.2':
     dependencies:
       '@bitcoinerlab/secp256k1': 1.2.0
       '@magiceden-oss/runestone-lib': 1.0.2
