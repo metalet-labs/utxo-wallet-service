@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@metalet/utxo-wallet-sdk':
-        specifier: 0.5.60-beta.4
-        version: 0.5.60-beta.4
+        specifier: 0.5.60-beta.5
+        version: 0.5.60-beta.5
       crypto-js:
         specifier: ^4.2.0
         version: 4.2.0
@@ -463,8 +463,8 @@ packages:
   '@magiceden-oss/runestone-lib@1.0.2':
     resolution: {integrity: sha512-C4XoE7tHxxaWQNzovBIEndXGrTesotshnKQA8DXlnoVDvriD6G26ezUoj9AlEb2UAPbEijSga4Dtwd86Z0a1jg==}
 
-  '@metalet/utxo-wallet-sdk@0.5.60-beta.4':
-    resolution: {integrity: sha512-G2+lZZQ3IujyjTMK1FhCS58WXWvbfdJ+6Q25hsGeivJr72Jmr4BZobDlub7idV9Rc/qQETqbS8palmJ195IDtg==}
+  '@metalet/utxo-wallet-sdk@0.5.60-beta.5':
+    resolution: {integrity: sha512-nXancUXvoRLMSMMDKYeanWd0RIl77kZ6gBWmd7oJy+3Tr17G3x+nonucWXTYx2tJ12MTektjqci0leDUMXKpGw==}
     engines: {node: '>=18'}
 
   '@microsoft/api-extractor-model@7.28.13':
@@ -2451,6 +2451,10 @@ packages:
     resolution: {integrity: sha512-rEvr90Bck4WZt9HHFC4DJMsjvu7x+r6bImz0/BrbWb7A2djJ8hnZMrWnHo9F8ssv0OMErasDhftrfROTyqSDrw==}
     engines: {node: '>= 0.4'}
 
+  which-typed-array@1.1.20:
+    resolution: {integrity: sha512-LYfpUkmqwl0h9A2HL09Mms427Q1RZWuOHsukfVcKRq9q95iQxdw0ix1JQrqbcDR9PH1QDwf5Qo8OZb5lksZ8Xg==}
+    engines: {node: '>= 0.4'}
+
   which@1.3.1:
     resolution: {integrity: sha512-HxJdYWq1MTIQbJ3nw0cqssHoTNU267KlrDuGZ1WYlxDStUtKUhOaJmh112/TZmHxxUfuJqPXSOm7tDyas0OSIQ==}
     hasBin: true
@@ -2976,7 +2980,7 @@ snapshots:
 
   '@magiceden-oss/runestone-lib@1.0.2': {}
 
-  '@metalet/utxo-wallet-sdk@0.5.60-beta.4':
+  '@metalet/utxo-wallet-sdk@0.5.60-beta.5':
     dependencies:
       '@bitcoinerlab/secp256k1': 1.2.0
       '@magiceden-oss/runestone-lib': 1.0.2
@@ -5277,7 +5281,7 @@ snapshots:
       is-arguments: 1.2.0
       is-generator-function: 1.1.2
       is-typed-array: 1.1.15
-      which-typed-array: 1.1.19
+      which-typed-array: 1.1.20
 
   v8-compile-cache-lib@3.0.1: {}
 
@@ -5372,6 +5376,16 @@ snapshots:
       is-weakset: 2.0.4
 
   which-typed-array@1.1.19:
+    dependencies:
+      available-typed-arrays: 1.0.7
+      call-bind: 1.0.8
+      call-bound: 1.0.4
+      for-each: 0.3.5
+      get-proto: 1.0.1
+      gopd: 1.2.0
+      has-tostringtag: 1.0.2
+
+  which-typed-array@1.1.20:
     dependencies:
       available-typed-arrays: 1.0.7
       call-bind: 1.0.8
